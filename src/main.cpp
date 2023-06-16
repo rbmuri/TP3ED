@@ -8,9 +8,13 @@ int main(){
     fstream input;
     string fecho, file;
     clock_t t0, t1, t2, t3, t4, t5;
-    double test;
     
-    cin >> fecho >> file;
+    while (1){
+        cin >> fecho;
+        if (fecho!="fecho") return 1;
+        if (fecho=="fecho") 
+    {
+    cin >> file;
     
     input.open(file);
     Point p;
@@ -42,25 +46,17 @@ int main(){
     //t4 = clock() - t4;
     t5 = clock();
     
-    
-    cout << "FECHO CONVEXO:\n";
+    cout << "\nFECHO CONVEXO:\n";
     jarvishull.print();
     cout << endl;
-    /*
-    cout << "FECHO CONVEXO graham: \n";
-    grahammerge.print();
-
-    cout << "FECHO CONVEXO:\n";
-    grahaminsert.print();
-
-    cout << "FECHO CONVEXO:\n";
-    grahambucket.print();
-    */
 
     printf("GRAHAM+MERGESORT: %.3fs\n", double(t2-t1) / CLOCKS_PER_SEC);
     printf("GRAHAM+INSERTIONSORT: %.3fs\n", double(t3-t2) / CLOCKS_PER_SEC);
     printf("GRAHAM+BUCKETSORT: %.3fs\n", double(t4-t3) / CLOCKS_PER_SEC);
     printf("JARVIS: %.3fs\n", double(t5-t4) / CLOCKS_PER_SEC);
-    
+    cout << endl;
+    input.close();
+    }
+    }
     return 0;
 }

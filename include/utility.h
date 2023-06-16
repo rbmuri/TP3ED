@@ -41,12 +41,8 @@ Point comparison(Point a, Point b, Point c){
     }
     else {
         if ( sqdist(a, b) > sqdist(a, c) ) 
-                return b;
-             
-        if ( sqdist(a, b) < sqdist(a, c) ) 
-                return c;
-            
-            else return c;
+                return b;            
+        else return c;
     }
 }
 

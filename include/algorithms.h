@@ -29,8 +29,7 @@ Pointvector jarvis(Pointvector pts){
 // sort_type = 3: bucket
 Pointstack graham(Pointvector pts, int sort_type){
     pts = sort(pts, sort_type);
-    //pts.print();
-    cout << "\n";
+    
     Pointstack stack;
     stack.place(pts[0]);
     stack.place(pts[1]);
