@@ -1,4 +1,4 @@
-#include "pq.h"
+#include "heap.h"
 
 using namespace std;
 
@@ -7,6 +7,7 @@ class Huffman {
     Huffman *left;
     Huffman *right;
     char content;
+    int value;
     bool leaf;
 
     Vector<pair<int, char>> mergesort(Vector<pair<int, char>> pts, int a, int b){
@@ -51,26 +52,98 @@ class Huffman {
         return pts;
     }
 
-    public:    
+    public:  
+    int getvalue(){
+        return value;
+    }
+    char getcontent(){
+        return content;
+    }
+    
+
+    Huffman(int v, char c){
+        left = nullptr;
+        right = nullptr;
+        leaf = true;
+        content = c;
+        value = v;
+    }
+
+    Huffman(Huffman l, Huffman r, int v){
+        left = &l;
+        right = &r;
+        leaf = false;
+        content = 0;
+        value = v;
+    }
+
     Huffman(){
         left = nullptr;
         right = nullptr;
         leaf = true;
     }
 
+    string encode_structure(){
+        if (leaf) return "0";
+        else {
+            return "1" + left->encode_structure() + right->encode_structure();
+        }
+    }
+    string encode_content(){
+        if (leaf) return ""+content;
+        else {
+            return left->encode_content() + right->encode_content();
+        }
+    }
+    /*
+    Huffman decode(fstream input){
+        char c;
+        
+    }
+    */
+
     void compress(fstream input, fstream output){
         char c;
         int ascii[256] = {0};
+        Heap<Huffman> myheap; 
         while (input >> c){
-            ascii[c]++;
+            ascii[c]++; //collecting frequency of characters
         }
-        Vector<pair<int, char>> myvec;
+        for (int i=0; i<=128; i++){
+            if (ascii[i]==0) continue;
+            Huffman h(ascii[i], i);
+            myheap.insert(h); //assigning them to a heap
+        }
+        while (myheap.size()!=1){
+            Huffman h1 = myheap.pull(), h2 = myheap.pull();
+            int val = h1.getvalue() + h2.getvalue();
+            Huffman h(h1, h2, val);
+            myheap.insert(h);
+        } //trimming down the heap until a binary tree is left
+        Huffman fin = myheap.pull(); //extract it
+        
+        
+        string struc = fin.encode_structure(); //
+        string cont = fin.encode_content();
+        
+        
+
+        
+
+
+        
+
+        input.seekg(0, input.beg);
+
+        
+        
+        
     }
 
 
 
     void decompress(fstream input, fstream output){
-
+        
     }
 
 };
