@@ -15,7 +15,8 @@ int main(){
  
     //string str = get_bits("test");
     //cout << str; 
-    write_bits("teste", "00110011000011110000111100001111");
+    write_bits("teste", "00110011001100110011001000110100");
+    get_bits("teste");
 
     return 0;
 }
